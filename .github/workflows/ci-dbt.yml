@@ -28,7 +28,6 @@ jobs:
       - name: Seed and run models in dev
         run: |
           dbt deps --target dev
-          dbt seed --target dev
           dbt run --target dev
           dbt test --target dev
           dbt doc generate --target dev
