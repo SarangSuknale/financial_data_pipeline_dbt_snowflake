@@ -64,4 +64,5 @@ accounts as (
     {% endif %}
 )
 
+
 select * from final
