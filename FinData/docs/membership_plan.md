@@ -8,4 +8,5 @@ The `membership_plan` column refers to the subscription tier a user has signed u
 | Pro        | $29.99      | 30               | Full access to all features           |
 | Premium    | $79.99      | 90               | Extended support and integrations     |
 
+
 {% enddocs %}

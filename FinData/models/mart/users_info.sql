@@ -1,3 +1,12 @@
+
+{{
+    config(
+        unique_key = 'user_id',
+        incremental_strategy='merge'
+
+    )
+}}
+
 with users as (
       select
             user_id,
@@ -19,3 +28,6 @@ with users as (
 )
 
 select * from users
+{% if is_incremental() and target.name=='testing' %}
+where sign_up_date >= dateadd('month', -1, current_date())
+{% endif %}
