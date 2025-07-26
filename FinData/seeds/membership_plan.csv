@@ -1,0 +1,4 @@
+plan,duration_days,price_usd,features
+Basic,14,0,"Limited access, Trial only"
+Standard,30,29.99,"Full access, No ads"
+Premium,90,79.99,"Full access, Priority support, Integrations"

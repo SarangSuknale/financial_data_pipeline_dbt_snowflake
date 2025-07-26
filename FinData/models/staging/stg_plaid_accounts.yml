@@ -1,0 +1,72 @@
+version: 2
+
+models:
+   - name: stg_plaid_accounts
+     description: This staging table extracts and transforms raw JSON-formatted account data from the Plaid
+                  financial aggregators. It parses and cleans values from the raw_values object, 
+                  standardizes datatypes, and prepares the data for downstream consumption in 
+                  intermediate and mart models.
+                  
+     columns:
+        - name: account_id
+          description: Unique identifier of the account 
+          tests:
+             - not_null
+        
+        - name: account_type
+          description: Type of acccount (checking, saving, loan, etc.)
+          tests:
+             - not_null
+
+        - name: available_balance
+          description: Amount available for withdrawal from the account, excluding holds or pending transactions.
+
+        - name: account_name
+          description: Name of the account
+          tests:
+            - not_null
+
+        - name: account_number
+          description: Account number provided by the institute
+          tests:
+             - not_null
+
+        - name: currency
+          description: currency code associated with the account balance (e.g., USD, INR)
+          tests: 
+             - not_null
+
+        - name: created_date
+          description: Date when the account was first linked or created in the system.
+          tests:
+             - not_null
+
+        - name: current_balance
+          description: Total current balance in the account including pending amounts.
+        
+        - name: institute_id
+          description: Unique identifier for the financial institution (e.g., bank ID).
+          tests:
+             - not_null
+          
+        - name: institute_name
+          description: Name of the institution where the account is held (e.g., Chase, Wells Fargo).
+          tests:
+             - not_null
+
+        - name: last_transaction_timestamp
+          description: Timestamp of the most recent transaction associated with the account.
+
+        - name: last_updated_timestamp 
+          description: Timestamp of the most recent update or sync for the account's data.
+ 
+        - name: status
+          description: Status of the account (e.g. active and inactive)
+          tests:
+             - not_null
+
+        - name: user_id
+          description: Foreign key to identify the user who owns this account.
+
+        - name: copy_data_at
+          description: Timestamp representing when this record was copied from the raw ingestion layer.

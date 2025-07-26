@@ -1,0 +1,41 @@
+# .github/workflows/ci-dbt.yml
+
+name: CI - dbt Dev and Test Validation
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [main]
+
+jobs:
+  dbt-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install dbt-snowflake
+
+      - name: Seed and run models in dev
+        run: |
+          dbt deps --target dev
+          dbt seed --target dev
+          dbt run --target dev
+          dbt test --target dev
+          dbt doc generate --target dev
+
+      - name: Run tests in test env
+        run: |
+          dbt deps --target test
+          dbt run --target test
+          dbt test --target test
+          

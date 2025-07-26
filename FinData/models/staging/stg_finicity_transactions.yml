@@ -1,0 +1,59 @@
+version: 2
+
+models:
+   - name: stg_finicity_transactions
+     description: This staging model parses and transforms raw JSON transaction data from financial 
+                  aggregators into structured tabular form. It includes fields such as transaction amount, 
+                  merchant, category, and dates, and is used as the foundation for downstream enrichment 
+                  and aggregation in the transactions mart.
+
+     columns:
+        - name: account_id
+          description: The unique ID of the account to which the transaction belongs
+          tests:
+             - not_null
+            
+        - name: amount
+          description: The monetary amount of the transaction. Positive for credits, negative for debits.
+          tests:
+             - not_null
+
+        - name: category
+          description: Category of transaction (e.g. insurance, rent, etc.)
+
+        - name: description
+          description: A short text describing the transaction
+
+        - name: transaction_id
+          description: Unique id for each transaction
+          tests: 
+             - not_null
+            #  - unique
+
+        - name: memo
+          description: Additional notes or context about the transaction
+
+        - name: merchant
+          description: Name of merchant (e.g. KFC, spotify, etc.)
+
+        - name: status
+          description: Status of transaction (posted or pending)
+          tests:
+             - not_null
+
+        - name: tag
+          description: Optional user-defined or system-defined tag 
+
+        - name: transaction_date
+          description: The date on which the transaction occurred
+          tests:
+             - not_null
+
+        - name: type
+          description: The type of transaction, typically credit, debit, investment, etc.
+
+        - name: copy_data_at
+          description: Timestamp when the record was ingested
+
+
+      

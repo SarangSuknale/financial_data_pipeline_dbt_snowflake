@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+    - name: raw_data
+      database: personal_finance_raw
+      schema: raw_data
+      tables:
+         - name: finicity_accounts
+           
+         - name: finicity_transactions
+          
+         - name: plaid_accounts
+
+         - name: plaid_transactions
+          
+         - name: yodlee_accounts
+
+         - name: yodlee_transactions
+
+         - name: users

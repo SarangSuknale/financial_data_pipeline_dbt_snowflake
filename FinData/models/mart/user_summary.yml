@@ -1,0 +1,126 @@
+version: 2
+
+models:
+   - name: user_summary
+     description: User_summary table provides a consolidated view of user profiles enriched with account 
+                  and transaction metrics. It includes demographic details, membership status, engagement 
+                  stats (e.g., days since signup), account sources, and aggregated transaction data such as 
+                  total spend, transaction count, and activity timelines. 
+
+     columns:
+        - name: user_id
+          description: Unique identifier for the user. Serves as the primary key and links to other tables 
+                       like accounts and transactions.
+          tests:
+             - not_null
+             - unique
+
+        - name: first_name
+          description: First name of the user
+        
+        - name: last_name 
+          description: Last name of the user
+
+        - name: email
+          description: Email address of the user, used for login or communication
+          tests:
+             - not_null
+            #  - unique
+
+        - name: gender
+          description: Gender of the user
+
+        - name: country
+          description: Country of residence of the user
+
+        - name: state
+          description: State or region within the user's country
+
+        - name: city
+          description: City of residence of the user
+
+        - name: street 
+          description: Street address or location line
+
+        - name: postal_code
+          description: ZIP or postal code of the user
+
+        - name: date_of_birth
+          description: Users birth date
+
+        - name: age 
+          description: Age of the user, calculated from date_of_birth 
+
+        - name: phone_number
+          description: User's contact phone number. Could be mobile or landline
+          tests:
+             - not_null
+
+        - name: is_active
+          description: Boolean flag indicating whether the user is currently active in the system
+          tests:
+             - not_null
+
+        - name: sign_up_date
+          description: Timestamp representing when the user first signed up or created their account
+          tests: 
+             - not_null
+
+        - name: days_since_signup
+          description: Number of days since the user signed up
+
+        - name: trail_start
+          description: Date when the user's free trial began
+          tests:
+             - not_null
+
+        - name: trail_end
+          description: Date when the user's free trial ends
+          tests:
+             - not_null
+
+        - name: membership_start
+          description: Date the user's paid subscription started
+
+        - name: membership_end
+          description: Date the user's paid subscription ends
+
+        - name: membership_remaining_days
+          description: Number of days left in the current membership
+
+        - name: membership_plan
+          description: "{{ doc('membership_plan')}}" 
+
+        - name: membership_status
+          description: Categorizes the user's current membership status as active, trail, or cancelled
+
+        - name: is_churn
+          description: Indicates if the user has churned based on membership end date
+
+        - name: finicity_accounts
+          description: Number of linked accounts from the Finicity data source
+
+        - name: plaid_accounts
+          description: Number of linked accounts from the Plaid data source
+
+        - name: yodlee_accounts
+          description: Number of linked accounts from the Yodlee data source
+
+        - name: total_accounts
+          description: Total number of accounts linked by the user across all data sources
+
+        - name: total_transactions
+          description: Total number of unique transactions associated with the user.
+
+        - name: total_amount_spend
+          description: Sum of transaction amounts across all accounts and sources
+
+        - name: oldest_transaction
+          description: Date of the earliest transaction recorded for the user
+
+        - name: latest_transaction
+          description: Date of the most recent transaction recorded for the user
+
+
+
+          

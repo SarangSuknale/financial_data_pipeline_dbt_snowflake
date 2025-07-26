@@ -1,0 +1,89 @@
+version: 2
+
+models:
+   - name: int_accounts
+     description: This intermediate table combined (union) all accounts data from stg_finicity_accounts, 
+                  stg_plaid_accounts and stg_yodlee_accounts models and prepares the data for downstream 
+                  consumption for the mart models.
+
+     columns:
+        - name: account_id
+          description: Primary key 
+          tests:
+             - not_null
+        
+        - name: account_type
+          description: Type of acccount (checking, saving, loan, etc.)
+          tests:
+             - not_null
+
+        - name: available_balance
+          description: Amount available for withdrawal from the account, excluding holds or pending transactions.
+
+        - name: account_name
+          description: Name of the account
+          tests:
+            - not_null
+
+        - name: account_number
+          description: Account number provided by the institute
+          tests:
+             - not_null
+
+        - name: currency
+          description: currency code associated with the account balance (e.g., USD, INR)
+          tests: 
+             - not_null
+
+        - name: created_date
+          description: Date when the account was first linked or created in the system.
+          tests:
+             - not_null
+
+        - name: current_balance
+          description: Total current balance in the account including pending amounts.
+        
+        - name: institute_id
+          description: Unique identifier for the financial institution (e.g., bank ID).
+          tests:
+             - not_null
+          
+        - name: institute_name
+          description: Name of the institution where the account is held (e.g., Chase, Wells Fargo).
+          tests:
+             - not_null
+
+        - name: last_transaction_timestamp
+          description: Timestamp of the most recent transaction associated with the account.
+
+        - name: last_updated_timestamp 
+          description: Timestamp of the most recent update or sync for the account's data.
+ 
+        - name: status
+          description: Status of the account (e.g. active and inactive)
+          tests:
+             - not_null
+
+        - name: user_id
+          description: Foreign key to identify the user who owns this account.
+
+        - name: account_age
+          description: Age of account in days (difference between current_timestamp and created date)
+
+        - name: days_since_last_transaction
+          description: Number of days since the last recorded transaction for the account
+
+        - name: days_since_last_update
+          description: Number of days since the account details were last updated
+
+        - name: balance_difference
+          description: Difference between the current_balance and the available_balance
+
+        - name: is_overdrawn
+          description: Boolean flag indicating whether the account is overdrawn (i.e., balance is negative)
+
+        - name: copy_data_at
+          description: Timestamp representing when this record was copied from the raw ingestion layer.
+
+        - name: account_source
+          description: The API name from the account added (finicity, yodlee, plaid)

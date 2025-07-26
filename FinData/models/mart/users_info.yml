@@ -1,0 +1,64 @@
+version: 2
+
+models:
+   - name: users_info
+     description: Users_info contains enriched user profile information derived from the raw user data. 
+                  It includes cleaned and structured personal attributes such as name, contact, location, 
+                  date of birth, gender, age. 
+
+     columns:
+        - name: user_id
+          description: Unique identifier for the user. Serves as the primary key and links to other tables 
+                       like accounts and transactions.
+          tests:
+             - not_null
+             - unique
+
+        - name: first_name
+          description: First name of the user
+        
+        - name: last_name 
+          description: Last name of the user
+
+        - name: email
+          description: Email address of the user, used for login or communication
+          tests:
+             - not_null
+            #  - unique
+
+        - name: gender
+          description: Gender of the user
+
+        - name: country
+          description: Country of residence of the user
+
+        - name: state
+          description: State or region within the user's country
+
+        - name: city
+          description: City of residence of the user
+
+        - name: street 
+          description: Street address or location line
+
+        - name: postal_code
+          description: ZIP or postal code of the user
+
+        - name: date_of_birth
+          description: Users birth date
+
+        - name: age 
+          description: Age of the user, calculated from date_of_birth 
+
+        - name: phone_number
+          description: User's contact phone number. Could be mobile or landline
+          tests:
+             - not_null
+
+        - name: is_active
+          description: Boolean flag indicating whether the user is currently active in the system
+          tests:
+             - not_null
+
+        - name: sign_up_date
+          description: The date when user sign up for account

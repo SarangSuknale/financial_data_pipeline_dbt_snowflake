@@ -1,0 +1,98 @@
+version: 2
+
+models: 
+   - name: accounts
+     description: Accounts table provides a consolidated view of user financial accounts from Finicity, Plaid, and Yodlee. 
+                  It includes account metadata, balances, institution details, last activity timestamps, 
+                  and derived metrics like account age, balance changes, and overdraft status to support 
+                  financial analysis and reporting.
+
+     columns:
+        - name: account_id
+          description: Primary key
+          tests:
+             - not_null
+             - unique
+
+        - name: account_name
+          description: Name of the  account
+          tests:
+             - not_null
+        
+        - name: account_type
+          description: Type of the account such as checking, savings, credit, loan, etc.
+          tests:
+             - not_null
+
+        - name: account_number
+          description: Account number provided by the institute
+
+        - name: available_balance
+          description: The funds currently available in the account for withdrawal or use
+          tests:
+             - not_null
+
+        - name: currency
+          description: Currency code of the account (e.g., USD, INR)
+          tests:
+             - not_null
+
+        - name: created_date
+          description: The date when the account was created or first linked
+          tests:
+            - not_null
+
+        - name: current_balance
+          description: Total balance in the account, including pending transactions
+
+        - name: institute_id
+          description: Unique identifier of the financial institution (e.g., bank or service provider)
+          tests:
+             - not_null
+
+        - name: institute_name
+          description: Name of the institution where the account is held (e.g., Bank of America, Chase)
+          tests:
+             - not_null
+
+        - name: last_transaction_timestamp
+          description: Timestamp of the most recent transaction for this account
+
+        - name: days_since_last_transaction
+          description: Number of days since the last transaction occurred on the account
+
+        - name: last_updated_timestamp
+          description: Timestamp when the account data was last updated via the API sync
+
+        - name: days_since_last_update
+          description: Number of days since the account was last refreshed or synced with the data provider
+
+        - name: status
+          description: Status of the account (active, inactive)
+          tests:
+             - not_null
+
+        - name: user_id
+          description: Foreign key linking the account to the corresponding user
+          tests:
+             - not_null
+
+        - name: account_age
+          description: Number of days since the account was created or linked
+
+        - name: balance_difference
+          description: Difference in balance between the last two updates; used to track recent spending or deposits
+
+        - name: is_overdrawn
+          description: Boolean flag indicating whether the account is currently overdrawn 
+
+        - name: account_source
+          description: Indicates the source of the account data (Finicity, Plaid, or Yodlee)
+          tests:
+             - not_null
+
+        - name: copy_data_at
+          description: Timestamp when this account record was last copied into your data warehouse 
+
+
+        

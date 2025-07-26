@@ -1,0 +1,85 @@
+version: 2
+
+models:
+   - name: stg_users
+     description: This staging model extracts and transforms raw JSON user profile data from the source 
+                  into a structured table. It includes demographic, contact, and subscription-related 
+                  attributes of each user. The data is intended for analytics on user demographics, 
+                  engagement, and subscription lifecycle.
+
+     columns:
+        - name: user_id
+          description: Unique identifier for the user. Serves as the primary key and links to other tables 
+                       like accounts and transactions.
+          tests:
+             - not_null
+
+        - name: full_name
+          description: The full name of the user
+          tests: 
+             - not_null
+
+        - name: email
+          description: Email address of the user, used for login or communication
+          tests:
+             - not_null
+            #  - unique
+
+        - name: gender
+          description: Gender of the user
+
+        - name: country
+          description: Country of residence of the user
+
+        - name: state
+          description: State or region within the user's country
+
+        - name: city
+          description: City of residence of the user
+
+        - name: street 
+          description: Street address or location line
+
+        - name: postal_code
+          description: ZIP or postal code of the user
+
+        - name: date_of_birth
+          description: Users birth date 
+
+        - name: phone_number
+          description: User's contact phone number. Could be mobile or landline
+          tests:
+             - not_null
+
+        - name: is_active
+          description: Boolean flag indicating whether the user is currently active in the system
+          tests:
+             - not_null
+
+        - name: sign_up_timestamp
+          description: Timestamp representing when the user first signed up or created their account
+          tests: 
+             - not_null
+
+        - name: trail_start
+          description: Date when the user's free trial began
+          tests:
+             - not_null
+
+        - name: trail_end
+          description: Date when the user's free trial ends
+          tests:
+             - not_null
+
+        - name: membership_start
+          description: Date the user's paid subscription started
+
+        - name: membership_end
+          description: Date the user's paid subscription ends
+
+        - name: membership_plan
+          description: "{{ doc('membership_plan') }}"
+          
+
+
+          

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+   - name: institutes
+     description: This table contains institute related data such as institute id, institute name, total 
+                  users, total accounts added by different APIs and total transactions.
+
+     columns:
+        - name: institute_id
+          description: primary key
+          tests:
+             - not_null
+             - unique
+
+        - name: institute_name
+          description: Name of the institute (bank)
+          tests:
+             - not_null
+
+        - name: total_users
+          description: Total number of users added accounts from the institute
+
+        - name: finicity_accounts_added
+          description: Total number of accounts added by finicity for the institute 
+
+        - name: plaid_accounts_added
+          description: Total number of accounts added by plaid for the institute
+
+        - name: yodlee_accounts_added
+          description: Total number of accounts added by yodlee for the institute
+
+        - name: total_accounts_added
+          description: Total number of acccounts from by all the API for the institute
+
+        - name: total_transactions
+          description: Total number of transactions from all the API for the institute
