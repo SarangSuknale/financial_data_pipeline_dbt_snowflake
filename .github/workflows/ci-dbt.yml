@@ -1,5 +1,3 @@
-# .github/workflows/ci-dbt.yml
-
 name: CI - dbt Dev and Test Validation
 
 on:
@@ -21,22 +19,33 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip install dbt-snowflake
+      - name: Install dbt
+        run: pip install dbt-snowflake
 
-      - name: Seed and run models in dev
+      - name: Copy profiles.yml to ~/.dbt
+        run: |
+          mkdir -p ~/.dbt
+          cp .finconfig/profiles.yml ~/.dbt/profiles.yml
+
+      - name: Run dbt in dev environment
         run: |
           dbt deps --target dev
+          dbt seed --target dev
           dbt run --target dev
           dbt test --target dev
-          dbt doc generate --target dev
         working-directory: ./FinData
-
-      - name: Run tests in test env
+      
+      - name: Run dbt in test environment
         run: |
-          dbt deps --target test
-          dbt run --target test
-          dbt test --target test
+          dbt deps --target testing
+          dbt run --target testing
+          dbt test --target testing
         working-directory: ./FinData
-          
+      
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}

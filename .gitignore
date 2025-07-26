@@ -39,7 +39,6 @@ dbt_env/
 # -------------------------------
 # Snowflake Credentials (avoid pushing secrets)
 # -------------------------------
-profiles.yml
 .env
 .env.*
 
