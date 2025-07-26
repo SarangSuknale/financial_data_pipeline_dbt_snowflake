@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install dbt-core==1.10.5 dbt-snowflake==1.10.5
+          pip install dbt-snowflake
 
       - name: Seed and run models in dev
         run: |
