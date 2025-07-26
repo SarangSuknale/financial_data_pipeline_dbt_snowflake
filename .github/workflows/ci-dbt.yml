@@ -32,12 +32,12 @@ jobs:
           dbt run --target dev
           dbt test --target dev
           dbt doc generate --target dev
-        working-directory: ./findata
+        working-directory: ./FinData
 
       - name: Run tests in test env
         run: |
           dbt deps --target test
           dbt run --target test
           dbt test --target test
-        working-directory: ./findata
+        working-directory: ./FinData
           
