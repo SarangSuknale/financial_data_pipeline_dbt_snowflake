@@ -26,8 +26,17 @@ jobs:
         run: |
           mkdir -p ~/.dbt
           cp .finconfig/profiles.yml ~/.dbt/profiles.yml
-
+   
       - name: Run dbt in dev environment
+
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
         run: |
           dbt deps --target dev
           dbt seed --target dev
