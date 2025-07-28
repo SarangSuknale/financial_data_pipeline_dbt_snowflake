@@ -12,6 +12,7 @@ models:
           description: The unique ID of the account to which the transaction belongs
           tests:
              - not_null
+             - unique
             
         - name: amount
           description: The monetary amount of the transaction. Positive for credits, negative for debits.
@@ -28,7 +29,7 @@ models:
           description: Unique id for each transaction
           tests: 
              - not_null
-            #  - unique
+             - unique
 
         - name: memo
           description: Additional notes or context about the transaction
