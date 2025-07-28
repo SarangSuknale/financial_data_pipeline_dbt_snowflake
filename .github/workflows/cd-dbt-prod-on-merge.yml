@@ -41,3 +41,4 @@ jobs:
           dbt seed --target prod
           dbt run --target prod
           dbt test --target prod
+        working-directory: ./FinData
