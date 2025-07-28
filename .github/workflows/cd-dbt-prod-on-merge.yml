@@ -2,16 +2,12 @@
 name: CD - dbt Prod on Merge to Main
 
 on:
-  workflow_run:
-    workflows: ["CI - dbt Dev and Test Validation"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   run-prod:
-    if: >
-      ${{ github.event.workflow_run.conclusion == 'success' &&
-           github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +23,21 @@ jobs:
         run: |
           pip install dbt-snowflake
 
-      - name: Run dbt in production
+      - name: Copy profiles.yml to ~/.dbt
         run: |
-          dbt deps
+          mkdir -p ~/.dbt
+          cp .finconfig/profiles.yml ~/.dbt/profiles.yml
+
+      - name: Run dbt in production
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+        run: |
+          dbt deps --target prod
+          dbt seed --target prod
           dbt run --target prod
           dbt test --target prod
