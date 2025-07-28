@@ -1,10 +1,13 @@
 name: CI - dbt Dev and Test Validation
 
 on:
-  push:
-    branches: [master]
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - master
 
 jobs:
   dbt-ci:
