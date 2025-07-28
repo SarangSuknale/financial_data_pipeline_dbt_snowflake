@@ -28,7 +28,7 @@ models:
           description: Unique id for each transaction
           tests: 
              - not_null
-            #  - unique
+             - unique
 
         - name: memo
           description: Additional notes or context about the transaction
